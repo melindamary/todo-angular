@@ -6,6 +6,7 @@ import { ApiService } from '../../services/api.service';
 import { CommonModule } from '@angular/common'; 
 import { ToDo } from '../../models/todo.interface';
 import { MatIconModule } from '@angular/material/icon';
+import { ToDoResponse } from '../../models/todo.response.interface';
 
 @Component({
   selector: 'app-table',
@@ -22,12 +23,11 @@ export class TableComponent {
   dataSource = new MatTableDataSource<ToDo>(this.ELEMENT_DATA);
   selection = new SelectionModel<ToDo>(true, []);
 
-  data:any = {}
   constructor(public api:ApiService){}
 
   fetchData(){
     this.api.getData().subscribe(
-      (response) => {
+      (response:ToDoResponse) => {
         console.log(response.todos);
         this.ELEMENT_DATA = response.todos;
         this.dataSource = new MatTableDataSource<ToDo>(this.ELEMENT_DATA);
